@@ -12,7 +12,7 @@ export default function PageWithSidebar() {
   const renderContent = () => {
     switch (active) {
       case "dashboard":
-        return <AllData />;
+        return <AllData user_id={user_id} />;
       case "upload":
         return <PageContent user_id={user_id} />;
       case "logout":

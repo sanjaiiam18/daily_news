@@ -45,7 +45,7 @@ export default function PageContent({ user_id }) {
         path: file.name,
       },
       imageBlob: file,
-      title: newEntries[index].title || file.name.split(".")[0], // Set title from filename if empty
+      title: newEntries[index].title || file.name.split(".")[0],
     };
 
     setEntries(newEntries);
@@ -152,6 +152,7 @@ export default function PageContent({ user_id }) {
         newEntries[index] = {
           ...newEntries[index],
           content: data.content.sections[0].content,
+          pageNo: data.content.sections[0].pageNumber || entry.pageNo,
         };
 
         // Add additional entries for any remaining sections

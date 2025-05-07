@@ -24,7 +24,7 @@ export async function POST(req) {
         sections: z.array(
           z.object({
             content: z.string().describe("Detailed content for the section"),
-            pageNumber: z.number().describe("Page number for this section"),
+            priorityOrder: z.number().describe("Priority order of the content"),
           })
         ),
       }),

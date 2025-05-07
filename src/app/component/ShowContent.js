@@ -5,7 +5,7 @@ import Head from "next/head";
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 
-export default function AllData() {
+export default function AllData({ user_id }) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -17,7 +17,13 @@ export default function AllData() {
   const fetchAllData = async () => {
     try {
       setLoading(true);
-      const res = await fetch("/api/db/mysql/diplay");
+      const res = await fetch("/api/db/mysql/diplay", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ user_id: user_id }),
+      });
       if (!res.ok) throw new Error("Failed to fetch data");
       const result = await res.json();
       setData(result.data);

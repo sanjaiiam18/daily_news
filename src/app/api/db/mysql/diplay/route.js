@@ -1,13 +1,23 @@
-// src/app/api/db/mysql/display/route.js
-
 import { NextResponse } from "next/server";
 import connection from "../connection/connection";
-export async function GET() {
+
+export async function POST(req) {
   try {
-    // fetch all news ordered by date desc
-    const [rows] = await connection.execute(
-      "SELECT * FROM news ORDER BY date DESC"
-    );
+    const body = await req.json();
+    const { user_id } = body;
+
+    let rows;
+
+    if (user_id === "admin") {
+      [rows] = await connection.execute(
+        "SELECT * FROM news ORDER BY date DESC"
+      );
+    } else {
+      [rows] = await connection.execute(
+        "SELECT * FROM news WHERE uploaded_by = ? ORDER BY date DESC",
+        [user_id]
+      );
+    }
 
     // convert any BLOB images to base64 data URIs
     const data = rows.map((item) => {
